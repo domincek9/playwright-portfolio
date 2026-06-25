@@ -80,4 +80,27 @@ test('add multiple products to cart', async ({ page }) => {
   // Verify cart badge
   await expect(page.locator('.shopping_cart_badge')).toHaveText('3');
 });
+
+test('continue shopping from cart', async ({ page }) => {
+  const inventoryPage = new InventoryPage(page);
+  const cartPage = new CartPage(page);
+
+  await inventoryPage.addBackpackToCart();
+  await inventoryPage.openCart();
+
+  await cartPage.continueShopping();
+
+  await expect(page).toHaveURL(/inventory/);
+});
+
+test('reset app state clears cart', async ({ page }) => {
+  const inventoryPage = new InventoryPage(page);
+
+  await inventoryPage.addBackpackToCart();
+  await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+
+  await inventoryPage.resetAppState();
+
+  await expect(page.locator('.shopping_cart_badge')).toHaveCount(0);
+});
 });

@@ -1,6 +1,7 @@
 import { Page } from '@playwright/test';
 
 export class CartPage {
+    proceedToCheckout: any;
 
     constructor(private page: Page) {}
 
@@ -14,5 +15,8 @@ export class CartPage {
 
     async checkout() {
         await this.page.locator('[data-test="checkout"]').click();
+    }
+    async continueShopping() {
+  await this.page.locator('[data-test="continue-shopping"]').click();
     }
 }

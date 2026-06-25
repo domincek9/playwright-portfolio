@@ -40,4 +40,8 @@ export class InventoryPage {
         await this.page.locator('#react-burger-menu-btn').click();
         await this.page.locator('#logout_sidebar_link').click();
     }
+    async resetAppState() {
+  await this.page.locator('#react-burger-menu-btn').click();
+  await this.page.locator('#reset_sidebar_link').click();
+    }
 }
